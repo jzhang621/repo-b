@@ -16,13 +16,15 @@ jobs:
       - name: Ref
         id: ref
         run: |
-          if [[ $before == "0000000000000000000000000000000000000000" ]]; then
+          # if [[ $before == "0000000000000000000000000000000000000000" ]]; then
             git fetch origin main
             git fetch origin HEAD
+            git merge-base origin/main HEAD
+            git log
             echo "::set-output name=before::$(git merge-base origin/${{ github.event.repository.default_branch }} HEAD)"
-          else
-            echo "::set-output name=before::${before}"
-          fi
+          # else
+          #   echo "::set-output name=before::${before}"
+          # fi
         env:
           before: ${{ github.event.before }}
       - name: Debug
