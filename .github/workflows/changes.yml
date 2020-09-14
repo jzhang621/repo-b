@@ -1,0 +1,24 @@
+name: Changes
+on: ['push']
+
+jobs:
+  Detect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Ref
+        id: ref
+        run: |
+          if [[ $ref -eq "0000000000000000000000000000000000000000" ]]; then
+            echo "::set-output name=before::$(git merge-base ${{ github.event.repository.default_branch }} HEAD)"
+          else
+            echo "::set-output name=before::${ref}"
+          fi
+        env:
+          ref: ${{ github.event.before }}
+      - name: Debug
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
