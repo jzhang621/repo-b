@@ -16,10 +16,7 @@ jobs:
       - name: Ref
         id: ref
         run: |
-          git fetch origin main
-          git fetch origin HEAD
-          git merge-base origin/main HEAD
-          git log
+          git fetch --deepen=20
           echo "::set-output name=before::$(git merge-base origin/${{ github.event.repository.default_branch }} HEAD)"
         env:
           before: ${{ github.event.before }}
