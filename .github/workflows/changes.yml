@@ -8,6 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Debug
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Ref
         id: ref
         run: |
