@@ -8,18 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Ref
-        id: ref
-        run: |
-          if [[ $before == "0000000000000000000000000000000000000000" ]]; then
-            git fetch --deepen=20
-            echo "::set-output name=before::$(git merge-base origin/${{ github.event.repository.default_branch }} HEAD)"
-          else
-            echo "::set-output name=before::${before}"
-          fi
-        env:
-          before: ${{ github.event.before }}
       - name: Debug
         env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
