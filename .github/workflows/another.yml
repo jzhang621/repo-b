@@ -1,0 +1,20 @@
+name: Another
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Changes
+    types: [completed]
+  push:
+
+jobs:
+  Detect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Debug
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
