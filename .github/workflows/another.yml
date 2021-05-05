@@ -19,5 +19,13 @@ jobs:
           WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           echo "SHA from workflow trigger: "
-          echo "$SHA"
+          echo "$EFFECTIVE_SHA"
+
+          echo "SHA from main: "
+          echo "$MAIN_SHA"
+
+          echo "SHA from worfklow: "
+          echo "$WORKFLOW_SHA"
+
+
 
