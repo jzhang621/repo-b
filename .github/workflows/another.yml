@@ -5,20 +5,16 @@ on:
     workflows:
       - Changes
     types: [completed]
-  push:
 
 jobs:
-  Detect:
+  Context:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Debug
         env:
-          CONTEXT: ${{ toJson(github) }}
-          WORKFLOW: ${{ toJson(github.event.workflow_run) }}
+          WORKFLOW: ${{ toJson(github.event.workflow_run.event) }}
         run: |
-          echo "$CONTEXT"
           echo "$WORKFLOW"
 
