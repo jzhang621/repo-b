@@ -16,6 +16,5 @@ jobs:
         env:
           WORKFLOW: ${{ toJson(github.event.workflow_run.event) }}
         run: |
-          echo "$CONTEXT"
           echo "$WORKFLOW"
 
