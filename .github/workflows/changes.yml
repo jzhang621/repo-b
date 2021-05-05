@@ -11,4 +11,4 @@ jobs:
       - name: Debug
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: (( RANDOM%2 == 0 )) && echo 0 || echo 1
