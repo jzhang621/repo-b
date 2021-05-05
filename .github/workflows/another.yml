@@ -16,14 +16,9 @@ jobs:
 
       - name: Debug
         env:
-          EFFECTIVE_SHA: ${{ github.head_sha || github.sha }}
-          SHA: ${{ github.sha }}
-          HEAD_SHA: ${{ github.head_sha }}
           CONTEXT: ${{ toJson(github) }}
+          WORKFLOW: ${{ toJson(github.event.workflow_run) }}
         run: |
-          echo "$EFFECTIVE_SHA"
-          echo "$SHA"
-          echo "$HEAD_SHA"
-          echo "$GITHUB_REF"
           echo "$CONTEXT"
+          echo "$WORKFLOW"
 
