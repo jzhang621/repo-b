@@ -7,41 +7,17 @@ on:
     types: [completed]
 
 jobs:
-  Manual:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Debug
-        env:
-          SHA: ${{ toJson(github.sha) }}
-        run: |
-          echo "SHA from github: "
-          echo "$SHA"
-     
   Success:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v2
-
-      - name: Debug
+      - name: Sha
         env:
-          SHA: ${{ toJson(github.event.workflow_run.head_sha) }}
+          EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          MAIN_SHA: ${{ github.sha }}
+          WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           echo "SHA from workflow trigger: "
-          echo "$SHA"
-
-  Failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Debug
-        env:
-          SHA: ${{ toJson(github.sha) }}
-        run: |
-          echo "Main SHA : "
           echo "$SHA"
 
