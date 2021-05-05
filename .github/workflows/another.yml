@@ -16,8 +16,6 @@ jobs:
 
       - name: Debug
         env:
-          HEAD_SHA: ${{ github.head_sha }}
-          SHA: ${{ github.sha }}
+          HEAD_SHA: ${{ github.head_sha || github.sha }}
         run: |
           echo "$HEAD_SHA"
-          echo "$SHA"
