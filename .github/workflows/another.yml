@@ -19,7 +19,7 @@ jobs:
           EFFECTIVE_SHA: ${{ github.head_sha || github.sha }}
           SHA: ${{ github.sha }}
           HEAD_SHA: ${{ github.head_sha }}
-          CONTEXT: ${{ toJson(githbu) }}
+          CONTEXT: ${{ toJson(github) }}
         run: |
           echo "$EFFECTIVE_SHA"
           echo "$SHA"
@@ -27,5 +27,3 @@ jobs:
           echo "$GITHUB_REF"
           echo "$CONTEXT"
 
-  Changes:
-    runs-on
