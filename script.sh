@@ -1,1 +1,2 @@
-(( RANDOM%2 == 0 )) && exit 0 || exit 1
+set -x
+(( RANDOM%2 == 0 )) && echo 0 || exit 1
