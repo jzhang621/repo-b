@@ -16,8 +16,8 @@ jobs:
       effective_sha: ${{ steps.sha.outputs.value }}
     # do conditional logic here
     env:
-        # EFFECTIVE_SHA: "${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || 'CUSTOM' }}"
-        EFFECTIVE_SHA: "${{ github.sha }}"
+      EFFECTIVE_SHA: "${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || 'CUSTOM' }}"
+        # EFFECTIVE_SHA: "${{ github.sha }}"
     steps:
       - id: sha
         run: echo "::set-output name=value::${EFFECTIVE_SHA}"
