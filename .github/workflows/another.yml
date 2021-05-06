@@ -1,4 +1,4 @@
-name: Another
+name: Deploy
 on:
   workflow_dispatch:
   workflow_run:
