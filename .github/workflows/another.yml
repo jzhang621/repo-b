@@ -10,8 +10,20 @@ env:
   EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
 
 jobs:
+  Effective:
+    runs-on: ubuntu-latest
+    outputs:
+      effective_sha: ${{ steps.sha.value }}
+    steps:
+      # do conditional logic here
+      env:
+        effecitve_sha: "test"
+      - id: sha
+        run: echo "::set-output name=value::$test"
+
   Success:
     runs-on: ubuntu-latest
+    needs: effective
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v2
@@ -29,11 +41,10 @@ jobs:
           echo "SHA from worfklow: "
           echo "$WORKFLOW_SHA"
   
-  Effective:
+  Print:
+    needs: effective
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Effective Sha
-        run: |
-          echo "Effective SHA"
-          echo "$EFFECTIVE_SHA"
+        run:  echo ${{needs.effective.outputs.value}} 
