@@ -16,9 +16,8 @@ jobs:
       effective_sha: ${{ steps.sha.value }}
     # do conditional logic here
     env:
-        EFFECTIVE_SHA: "test"
+        EFFECTIVE_SHA: "12345"
     steps:
-     
       - id: sha
         run: echo "::set-output name=value::$test"
 
@@ -48,4 +47,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Effective Sha
-        run:  echo ${{needs.effective.outputs.value}} 
+        run:  echo ${{needs.effective.outputs.effective_sha}} 
