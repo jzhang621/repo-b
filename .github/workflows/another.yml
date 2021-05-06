@@ -19,7 +19,7 @@ jobs:
         EFFECTIVE_SHA: "12345"
     steps:
       - id: sha
-        run: echo "::set-output name=value::$test"
+        run: echo "::set-output name=value::$EFFECTIVE_SHA"
 
   Success:
     runs-on: ubuntu-latest
