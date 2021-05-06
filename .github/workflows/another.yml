@@ -6,18 +6,19 @@ on:
       - Changes
     types: [completed]
 
-jobs:
-  env:
-    EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha | github.sha }}
+env:
+  EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
 
+jobs:
   Success:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v2
       - name: Sha
-          MAIN_SHA: ${{ github.sha }}
-          WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
+        env:
+            MAIN_SHA: ${{ github.sha }}
+            WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           echo "SHA from workflow trigger: "
           echo "$EFFECTIVE_SHA"
@@ -28,7 +29,7 @@ jobs:
           echo "SHA from worfklow: "
           echo "$WORKFLOW_SHA"
   
-  Success:
+  Effective:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
