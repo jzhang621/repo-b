@@ -13,7 +13,7 @@ jobs:
   Effective:
     runs-on: ubuntu-latest
     outputs:
-      effective_sha: ${{ steps.sha.value }}
+      effective_sha: ${{ steps.sha.outputs.value }}
     # do conditional logic here
     env:
         EFFECTIVE_SHA: "12345"
