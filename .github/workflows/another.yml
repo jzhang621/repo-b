@@ -14,10 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       effective_sha: ${{ steps.sha.value }}
+    # do conditional logic here
+    env:
+        EFFECTIVE_SHA: "test"
     steps:
-      # do conditional logic here
-      env:
-        effecitve_sha: "test"
+     
       - id: sha
         run: echo "::set-output name=value::$test"
 
