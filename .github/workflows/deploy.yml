@@ -6,42 +6,18 @@ on:
       - Test
     types: [completed]
 
-# env:
-#   EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
-
 jobs:
   Effective:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
       effective_sha: ${{ steps.sha.outputs.value }}
-    # do conditional logic here
     env:
-      EFFECTIVE_SHA: "${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || 'CUSTOM' }}"
-        # EFFECTIVE_SHA: "${{ github.sha }}"
+      EFFECTIVE_SHA: "${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || github.sha }}"
     steps:
       - id: sha
         run: echo "::set-output name=value::${EFFECTIVE_SHA}"
 
-  Success:
-    runs-on: ubuntu-latest
-    needs: effective
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Sha
-        env:
-            MAIN_SHA: ${{ github.sha }}
-            WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          echo "Effective Sha"
-          echo "$EFFECTIVE_SHA"
-
-          echo "SHA from main: "
-          echo "$MAIN_SHA"
-
-          echo "SHA from worfklow: "
-          echo "$WORKFLOW_SHA"
-  
   Print:
     needs: effective
     runs-on: ubuntu-latest
