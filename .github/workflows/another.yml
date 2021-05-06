@@ -20,7 +20,7 @@ jobs:
             MAIN_SHA: ${{ github.sha }}
             WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
-          echo "SHA from workflow trigger: "
+          echo "Effective Sha"
           echo "$EFFECTIVE_SHA"
 
           echo "SHA from main: "
@@ -35,5 +35,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Effective Sha
         run: |
-          echo "SHA from workflow trigger: "
+          echo "Effective SHA"
           echo "$EFFECTIVE_SHA"
