@@ -6,8 +6,8 @@ on:
       - Test
     types: [completed]
 
-env:
-  EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+# env:
+#   EFFECTIVE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
 
 jobs:
   Effective:
@@ -19,7 +19,7 @@ jobs:
         EFFECTIVE_SHA: "12345"
     steps:
       - id: sha
-        run: echo "::set-output name=value::$EFFECTIVE_SHA"
+        run: echo "::set-output name=value::world"
 
   Success:
     runs-on: ubuntu-latest
