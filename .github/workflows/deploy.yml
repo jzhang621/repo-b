@@ -7,11 +7,11 @@ on:
     types: [completed]
 
 jobs:
-  env:
-    effective_sha: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || github.sha }}
   Effective:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    env:
+      effective_sha: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || github.sha }}
     outputs:
       effective_sha : $effective_sha
     steps:
