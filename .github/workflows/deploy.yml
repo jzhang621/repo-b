@@ -11,12 +11,10 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
-      effective_sha: ${{ steps.sha.outputs.value }}
-    env:
-      EFFECTIVE_SHA: "${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha || github.sha }}"
+      effective_sha : ${{ steps.sha.outputs.github.event.workflow_run.conclusion == 'success' && steps.sha.outputs.github.event.workflow_run.head_sha || steps.sha.outputs.github.sha }}
     steps:
       - id: sha
-        run: echo "::set-output name=value::${EFFECTIVE_SHA}"
+        run: echo "::set-output name=github::${github}"
 
   Print:
     needs: effective
